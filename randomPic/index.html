@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Random image app</title>
+  </head>
+  <body>
+    <div class="randomImageApp">
+      <h1>Image Galery</h1>
+      <div class="imageContainer">
+        <img src="https://picsum.photos/180/180?random=1" />
+        <img src="https://picsum.photos/180/180?random=2" />
+        <img src="https://picsum.photos/180/180?random=3" />
+        <img src="https://picsum.photos/180/180?random=4" />
+      </div>
+      <div class="link">
+        <button class="newImages">New images</button>
+        <button class="add">Add</button>
+        <button class="remove">Remove</button>
+      </div>
+      <div class="myName">
+        Random image app by <strong>Михаил Корнейчук</strong>
+      </div>
+    </div>
+    <script>
+      function reload() {
+        const images = document.querySelectorAll("img");
+        images.forEach((image) => {
+          image.src =
+            "https://picsum.photos/180/180?random=" +
+            Math.floor(Math.random() * 1000000);
+        });
+      }
+      const button = document.querySelector(".newImages");
+      button.onclick = reload;
+
+      function addImage() {
+        const imageContainer = document.querySelector(".imageContainer");
+        const image = document.createElement("img");
+        image.src =
+          "https://picsum.photos/180/180?random=" +
+          Math.floor(Math.random() * 1000000);
+        imageContainer.append(image);
+        const removeButton = document.querySelector(".remove");
+        removeButton.removeAttribute("disabled");
+      }
+      const addButton = document.querySelector(".add");
+      addButton.onclick = addImage;
+
+      function removeImage() {
+        let imageCounter = document.querySelectorAll("img");
+        if (imageCounter.length == 1) {
+          const removeButton = document.querySelector(".remove");
+          removeButton.setAttribute("disabled", "true");
+        } else {
+          let lastElem = imageCounter[imageCounter.length - 1];
+          lastElem.classList.add("lastElem");
+        }
+        const removeButton = document.querySelector(".lastElem");
+        removeButton.remove();
+      }
+      const removeButton = document.querySelector(".remove");
+      removeButton.onclick = removeImage;
+    </script>
+  </body>
+</html>
